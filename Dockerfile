@@ -1,9 +1,10 @@
-FROM openjdk:8-jdk
+FROM registry.cn-hangzhou.aliyuncs.com/sartner/java8-alpine:1.8_121_b13
 
 RUN apt-get update && apt-get install -y git curl && rm -rf /var/lib/apt/lists/*
 
 ENV JENKINS_HOME /var/jenkins_home
 ENV JENKINS_SLAVE_AGENT_PORT 50000
+ENV JENKINS_OPTS="--httpPort=50001"
 
 ARG user=jenkins
 ARG group=jenkins
