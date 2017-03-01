@@ -1,9 +1,12 @@
-FROM openjdk:8-jdk-alpine
+FROM registry.cn-hangzhou.aliyuncs.com/sartner/java8-alpine:1.8_121_b13
+#FROM openjdk:8-jdk-alpine
 
 RUN apk add --no-cache git openssh-client curl unzip bash ttf-dejavu coreutils
 
 ENV JENKINS_HOME /var/jenkins_home
 ENV JENKINS_SLAVE_AGENT_PORT 50000
+ENV JENKINS_OPTS "--httpPort=50001"
+
 
 ARG user=jenkins
 ARG group=jenkins
@@ -53,7 +56,7 @@ ENV JENKINS_UC https://updates.jenkins.io
 RUN chown -R ${user} "$JENKINS_HOME" /usr/share/jenkins/ref
 
 # for main web interface:
-EXPOSE 8080
+EXPOSE 50001
 
 # will be used by attached slave agents:
 EXPOSE 50000
